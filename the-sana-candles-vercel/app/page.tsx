@@ -43,7 +43,7 @@ export default function Home() {
     const orderTotal = result.total ?? total;
     const lines = cartItems.map((item) => `• ${item.name} × ${item.quantity} — ${item.price * item.quantity} EGP`).join("\n");
     const message = `طلب جديد من The Sana Candles\nرقم الطلب: ${result.orderNumber}\n\n${lines}\n\nالإجمالي: ${orderTotal} EGP\nالاسم: ${form.get("name")}\nالموبايل: ${form.get("phone")}\nالعنوان: ${form.get("address")}\nملاحظات: ${form.get("notes") || "لا يوجد"}`;
-    setConfirmed({ number: result.orderNumber, total: orderTotal, whatsappUrl: `https://wa.me/201006182846?text=${encodeURIComponent(message)}` });
+    setConfirmed({ number: result.orderNumber, total: orderTotal, whatsappUrl: `https://wa.me/201201536740?text=${encodeURIComponent(message)}` });
     setCart({});
   };
 
@@ -87,7 +87,7 @@ export default function Home() {
         <div className="story-copy"><p className="eyebrow">OUR STORY · حكايتنا</p><h2>Made for the pause<br/>between everything.</h2><p>The Sana Candles began with one simple belief: everyday rituals deserve beautiful things. Every candle is poured by hand in small batches, using a clean soy blend and carefully layered fragrances.</p><blockquote>“Sana means radiance — the kind that starts quietly, from within.”</blockquote><a className="text-link" href="#gifts">Discover our story <span>↗</span></a></div>
       </div></section>
 
-      <section className="gifts wrap" id="gifts"><p className="eyebrow">A LITTLE LIGHT, BEAUTIFULLY GIVEN</p><h2>Made for gifting</h2><p>Birthdays, thank-yous, new homes, or just because.<br/>We wrap every gift with care.</p><a className="primary" href="https://wa.me/201000000000?text=Hello%20The%20Sana%20Candles%2C%20I%27d%20like%20to%20ask%20about%20a%20gift%20order">Order a gift</a></section>
+      <section className="gifts wrap" id="gifts"><p className="eyebrow">A LITTLE LIGHT, BEAUTIFULLY GIVEN</p><h2>Made for gifting</h2><p>Birthdays, thank-yous, new homes, or just because.<br/>We wrap every gift with care.</p><a className="primary" href="https://wa.me/201201536740?text=Hello%20The%20Sana%20Candles%2C%20I%27d%20like%20to%20ask%20about%20a%20gift%20order">Order a gift</a></section>
       <footer><div className="wrap"><a className="logo footer-brand" href="#top">The Sana Candles</a><p>Hand-poured with warmth in Egypt.</p><div><a href="#shop">Shop</a><a href="#story">Story</a><a href="#gifts">Gifts</a></div><small>© 2026 The Sana Candles</small></div></footer>
       {bagOpen && <div className="bag-overlay" onMouseDown={(event) => { if (event.target === event.currentTarget) setBagOpen(false); }}>
         <aside className="bag-panel" aria-label="Shopping bag" role="dialog" aria-modal="true">
