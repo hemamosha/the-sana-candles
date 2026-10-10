@@ -1,4 +1,9 @@
-const prices: Record<string, number> = { "Iced Raspberry Latte": 480, "Iced Classic Latte": 480, "Iced Strawberry Matcha Latte": 520 };
+const prices: Record<string, number> = {
+  "Iced Raspberry Latte": 500,
+  "Iced Classic Latte": 350,
+  "Iced Strawberry Matcha Latte": 500,
+  "Iced Coffee Swirl Candle": 650,
+};
 
 export async function POST(request: Request) {
   try {

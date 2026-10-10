@@ -3,9 +3,10 @@
 import { FormEvent, useMemo, useState } from "react";
 
 const products = [
-  { name: "Iced Raspberry Latte", arabic: "آيسد راسبيري لاتيه", scent: "Raspberry · Creamy Latte", price: 480, tone: "raspberry", image: "/iced-raspberry-latte.jpeg" },
-  { name: "Iced Classic Latte", arabic: "آيسد كلاسيك لاتيه", scent: "Coffee · Milk · Vanilla", price: 480, tone: "classic", image: "/iced-classic-latte.jpeg" },
-  { name: "Iced Strawberry Matcha Latte", arabic: "آيسد ستروبيري ماتشا لاتيه", scent: "Strawberry · Matcha · Cream", price: 520, tone: "matcha", image: "/iced-strawberry-matcha-latte.jpeg" },
+  { name: "Iced Raspberry Latte", arabic: "آيسد راسبيري لاتيه", scent: "Raspberry · Creamy Latte", weight: 300, price: 500, tone: "raspberry", image: "/iced-raspberry-latte.jpeg" },
+  { name: "Iced Classic Latte", arabic: "آيسد كلاسيك لاتيه", scent: "Coffee · Milk · Vanilla", weight: 200, price: 350, tone: "classic", image: "/iced-classic-latte.jpeg" },
+  { name: "Iced Strawberry Matcha Latte", arabic: "آيسد ستروبيري ماتشا لاتيه", scent: "Strawberry · Matcha · Cream", weight: 300, price: 500, tone: "matcha", image: "/iced-strawberry-matcha-latte.jpeg" },
+  { name: "Iced Coffee Swirl Candle", arabic: "آيسد كوفي سويرل", scent: "Coffee · Cream · Chocolate", weight: 400, price: 650, tone: "swirl", image: "/iced-coffee-swirl-candle.jpeg" },
 ];
 
 export default function Home() {
@@ -41,7 +42,7 @@ export default function Home() {
     setSubmitting(false);
     if (!response.ok || !result.orderNumber) { setNotice(result.error ?? "Could not confirm your order."); return; }
     const orderTotal = result.total ?? total;
-    const lines = cartItems.map((item) => `• ${item.name} × ${item.quantity} — ${item.price * item.quantity} EGP`).join("\n");
+    const lines = cartItems.map((item) => `• ${item.name} (${item.weight}g) × ${item.quantity} — ${item.price * item.quantity} EGP`).join("\n");
     const message = `طلب جديد من The Sana Candles\nرقم الطلب: ${result.orderNumber}\n\n${lines}\n\nالإجمالي: ${orderTotal} EGP\nالاسم: ${form.get("name")}\nالموبايل: ${form.get("phone")}\nالعنوان: ${form.get("address")}\nملاحظات: ${form.get("notes") || "لا يوجد"}`;
     setConfirmed({ number: result.orderNumber, total: orderTotal, whatsappUrl: `https://wa.me/201201536740?text=${encodeURIComponent(message)}` });
     setCart({});
@@ -70,12 +71,12 @@ export default function Home() {
       </section>
 
       <section className="shop wrap" id="shop">
-        <div className="section-head"><div><p className="eyebrow">THE SIGNATURE EDIT</p><h2>Scents for every mood</h2></div><p>ثلاث روائح، كل واحدة تحكي حكاية مختلفة.</p></div>
+        <div className="section-head"><div><p className="eyebrow">THE SIGNATURE EDIT</p><h2>Scents for every mood</h2></div><p>أربع روائح، كل واحدة تحكي حكاية مختلفة.</p></div>
         <div className="products">
           {products.map((product, index) => (
             <article className="product" key={product.name}>
               <div className={`product-art ${product.tone}`}><span>0{index + 1}</span><img src={product.image} alt={`${product.name} candle`} /></div>
-              <div className="product-info"><div><p>{product.scent}</p><h3>{product.name}</h3><span>{product.arabic}</span></div><strong>{product.price} EGP</strong></div>
+              <div className="product-info"><div><p>{product.scent}</p><h3>{product.name}</h3><span>{product.arabic}</span></div><div className="product-meta"><span>{product.weight} g</span><strong>{product.price} EGP</strong></div></div>
               <button onClick={() => add(product.name)}>Add to bag <span>＋</span></button>
             </article>
           ))}
@@ -103,7 +104,7 @@ export default function Home() {
               <button className="primary checkout-submit" disabled={submitting}>{submitting ? "Confirming…" : "Confirm order · تأكيد الطلب"}</button>
               <small>Payment is collected on delivery. We’ll call to confirm your order.</small>
             </form>
-          : cartItems.length ? <><div className="bag-items">{cartItems.map((item) => <div className="bag-item" key={item.name}><div className={`bag-thumb ${item.tone}`}></div><div><h3>{item.name}</h3><p>{item.scent}</p><div className="quantity"><button onClick={() => changeQuantity(item.name, -1)}>−</button><span>{item.quantity}</span><button onClick={() => changeQuantity(item.name, 1)}>＋</button></div></div><strong>{item.price * item.quantity} EGP</strong></div>)}</div><div className="bag-summary"><div><span>Subtotal</span><strong>{total} EGP</strong></div><p>Delivery is confirmed by phone.</p><button className="primary" onClick={() => setCheckout(true)}>Continue to checkout</button></div></>
+          : cartItems.length ? <><div className="bag-items">{cartItems.map((item) => <div className="bag-item" key={item.name}><div className={`bag-thumb ${item.tone}`}></div><div><h3>{item.name}</h3><p>{item.scent} · {item.weight} g</p><div className="quantity"><button onClick={() => changeQuantity(item.name, -1)}>−</button><span>{item.quantity}</span><button onClick={() => changeQuantity(item.name, 1)}>＋</button></div></div><strong>{item.price * item.quantity} EGP</strong></div>)}</div><div className="bag-summary"><div><span>Subtotal</span><strong>{total} EGP</strong></div><p>Delivery is confirmed by phone.</p><button className="primary" onClick={() => setCheckout(true)}>Continue to checkout</button></div></>
           : <div className="empty-bag"><p>Your bag is waiting for a little light.</p><span>السلة فارغة حالياً</span><button className="primary" onClick={() => setBagOpen(false)}>Explore candles</button></div>}
         </aside>
       </div>}
